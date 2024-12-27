@@ -9,10 +9,10 @@ SW중심대학 디지털 경진대회_SW와 생성AI의 만남 : AI부문
 ## 프로젝트 과정 설명
 1. 모듈을 import 합니다.<br>
 librosa<br>
-![image](./image/librosa.jpg)
+![image](./image/librosa.jpg) <br>
 sklearn<br>
 pandas<br>
-![image](./image/pandas.jpg)
+![image](./image/pandas.jpg) <br>
 torch<br>
 ![image](./image/pytorch.jpg) <br>
 2. Config을 통해서 parameter, hyperparamter를 적용합니다.
@@ -51,3 +51,4 @@ class MLP(nn.Module):
         return x
 ```
 6. 이 model를 학습하며, 결과를 도출합니다.
+점수: 0.4083417085
