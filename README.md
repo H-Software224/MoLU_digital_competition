@@ -11,6 +11,7 @@ SW중심대학 디지털 경진대회_SW와 생성AI의 만남 : AI부문
 librosa<br>
 ![image](./image/librosa.jpg) <br>
 sklearn<br>
+![image](./image/scikit-learn.jpg)<br>
 pandas<br>
 ![image](./image/pandas.jpg) <br>
 torch<br>
@@ -33,6 +34,29 @@ class Config:
 CONFIG = Config()
 ```
 4. data processing으로 mfcc 기법을 이용합니다.
+```
+def get_mfcc_feature(df, train_mode=True):
+    features = []
+    labels = []
+    for _, row in tqdm(df.iterrows()):
+        # librosa패키지를 사용하여 wav 파일 load
+        y, sr = librosa.load(row['path'], sr=CONFIG.SR)
+
+        # librosa패키지를 사용하여 mfcc 추출
+        mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=CONFIG.N_MFCC)
+        mfcc = np.mean(mfcc.T, axis=0)
+        features.append(mfcc)
+
+        if train_mode:
+            label = row['label']
+            label_vector = np.zeros(CONFIG.N_CLASSES, dtype=float)
+            label_vector[0 if label == 'fake' else 1] = 1
+            labels.append(label_vector)
+
+    if train_mode:
+        return features, labels
+    return features
+```
 5. model를 mlp로 정하여서 모델링합니다.
 ```
 class MLP(nn.Module):
